@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class NetworkController : Photon.MonoBehaviour {
 
+	private bool hiding = false;
+
 	// Use this for initialization
 	void Start () {
+		
 		
 	}
 	
@@ -16,6 +19,10 @@ public class NetworkController : Photon.MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			Debug.Log ("Space pressed.");
 			ForceJump (new Vector3(3,3,3));
+		}
+		if (Input.GetKeyDown (KeyCode.H)) {
+			Debug.Log ("H pressed.");
+			HideMe ();
 		}
 	}
 
@@ -34,5 +41,16 @@ public class NetworkController : Photon.MonoBehaviour {
 
 		if(photonView.isMine)
 			photonView.RPC("ForceJump", PhotonTargets.Others, dir);
+	}
+
+	[PunRPC] void HideMe(){
+		GetComponent<PhotonView> ().RequestOwnership ();
+		if (hiding == false) {
+			gameObject.SetActive (false);
+		} else {
+			gameObject.SetActive (true);
+		}
+		if(photonView.isMine)
+			photonView.RPC("HideMe", PhotonTargets.Others);
 	}
 }
