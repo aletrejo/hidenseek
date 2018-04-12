@@ -43,4 +43,9 @@ MonoBehaviour:
   - RequestForPickupTimes
   - TaggedPlayer
   - ForceJump
+  - HideMe
+  - ChangeColorTo
+  - DetachParent
+  - MoveTo
+  - SetNewParent
   DisableAutoOpenWizard: 1
